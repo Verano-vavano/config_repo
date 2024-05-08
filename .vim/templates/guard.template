@@ -1,0 +1,4 @@
+#ifndef {{MACRO_GUARD}}
+# define {{MACRO_GUARD}}
+{{CURSOR}}
+#endif /* {{MACRO_GUARD}} */

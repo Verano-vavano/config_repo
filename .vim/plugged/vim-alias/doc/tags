@@ -1,0 +1,9 @@
+Alias	alias.txt	/*Alias*
+Aliases	alias.txt	/*Aliases*
+UnAlias	alias.txt	/*UnAlias*
+alias	alias.txt	/*alias*
+alias-about	alias.txt	/*alias-about*
+alias-configuration	alias.txt	/*alias-configuration*
+alias-usage	alias.txt	/*alias-usage*
+alias.txt	alias.txt	/*alias.txt*
+g:cmdalias_cmdprefixes	alias.txt	/*g:cmdalias_cmdprefixes*

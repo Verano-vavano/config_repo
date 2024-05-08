@@ -1,0 +1,9 @@
+#include "{{FILE}}.hpp"
+
+{{CAMEL_CLASS}}::{{CAMEL_CLASS}}(void) { {{CURSOR}}return ; }
+
+{{CAMEL_CLASS}}::~{{CAMEL_CLASS}}(void) { return ; }
+
+{{CAMEL_CLASS}}::{{CAMEL_CLASS}}({{CAMEL_CLASS}} const & old) { (void) old; return ; }
+
+{{CAMEL_CLASS}}&	{{CAMEL_CLASS}}::operator=({{CAMEL_CLASS}} const & rhs) { (void) rhs; return (*this); }

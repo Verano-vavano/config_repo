@@ -1,0 +1,135 @@
+*alias* *alias.txt*
+
+==============================================================================
+ABOUT                                               *alias-about*
+
+  This plugin lets you define command-line abbreviations that only expand at
+  the beginning of the command prompt. These command-line abbreviations work
+  like the bash aliases, except that the alias is substituted in-place.
+
+  Visit https://konfekt.github.io/blog/2016/10/03/get-the-leader-right to
+  find out why an alias is most often preferable to a <leader> mapping!
+
+==============================================================================
+USAGE                                               *alias-usage*
+>
+  :Alias [-range] [-buffer] <lhs> <rhs>
+<
+  or
+>
+  :call alias#alias(['-range'], ['-buffer'], '<lhs>', '<rhs>')
+
+  :UnAlias [-buffer] <lhs> ...
+  :Aliases [-buffer] [lhs] ...
+<
+  - To create an alias, use the command *Alias* .
+    Pass the optional parameters -buffer or -range to create a buffer-local
+    alias or one that accepts a range preceding the alias.
+    To override an existing alias, append ! to :Alias.
+  - To remove an alias, use the command *UnAlias* .
+  - To list all aliases, use the command *Aliases* .
+    Restrict the output to all aliases whose name contains .. by appending ...
+>
+  To define the Aliases after Vim has started up, define them in
+  ~/.vim/after/plugin/alias.vim, or add to ~/.vimrc
+>
+  if exists('s:loaded_vimafter')
+    silent doautocmd VimAfter VimEnter *
+  else
+    let s:loaded_vimafter = 1
+    augroup VimAfter
+      autocmd!
+      autocmd VimEnter * source ~/.vim/after/vimrc.vim
+    augroup END
+  endif
+<
+  and define them in ~/.vim/after/vimrc.vim.
+
+  Examples:
+>
+    :Alias -range     dg   <c-r>=&l:diff?"diffget":"dg"<cr>
+    :Alias -buffer    spl  setlocal\ spell<bar>setlocal\ spelllang=en
+    :Alias            w!!  write\ !sudo\ tee\ >\ /dev/null\ %
+    :Alias            F    find\ *<c-r>=Eatchar("\ ")<cr>
+    :Alias            th   tab\ help
+    :Alias            sft  setfiletype
+    :Alias -range     il   ilist\ /\v/<left><c-r>=EatChar("\ ")<cr>
+    :Alias -range     dl   dlist\ //<left><c-r>=EatChar("\ ")<cr>
+    :Alias            g    Silent\ git
+    :Alias            gbl  Silent\ tig\ blame\ +<c-r>=line('.')<cr>\ --\ %:S<c-left><c-left><left>
+    :Alias            g!   g!
+    :UnAlias          g
+    :Aliases
+<
+  See 'abbreviations' for Eatchar(c). The command :Silent is defined as
+>
+    if has('unix')
+        command! -complete=shellcmd -nargs=1 -bang Silent execute ':silent<bang> !' . <q-args> | execute ':redraw!'
+    elseif has('win32')
+        command! -complete=shellcmd -nargs=1 -bang Silent execute ':silent<bang> !start /b ' . <q-args> | execute ':redraw!'
+    endif
+<
+The executable [tig](https://github.com/jonas/tig) is a text-mode interface
+for git and [translate-shell](https://github.com/soimort/translate-shell) a
+command-line translator.
+
+==============================================================================
+CONFIGURATION                                        *alias-configuration*
+
+  The variable *g:cmdalias_cmdprefixes* lists the patterns of all commands by
+  which an alias command may be preceded and yet expand. It defaults to
+>
+  let g:cmdalias_cmdprefixes = [
+		\ '\%(vert\%[ical]\|hor\%[izontal]\|lefta\%[bove]\|abo\%[veleft]\|rightb\%[elow]\|bel\%[owright]\|to\%[pleft]\|bo\%[tright]\)\?\s*' .
+		\ 'ter\%[minal]\s*' .
+		\ '\%(++\%(close\|noclose\|open\|curwin\|hidden\|norestore\|shell\|kill=\a*\|rows=\d\+\|cols=\d\+\|eof=\S*\|pty=\a*\|api=\w\+\)\)\?',
+    \ '\d*verb\%[ose]', 'debug', 'sil\%[ent]!\?', 'uns\%[ilent]', 'redir\?!\?',
+    \ '.*[^|]|',
+    \ 'ld!\?', '[cl]fd!\?', '[cl]f\?do!\?',
+    \ '\%(\%([.$]\|\d\+\)\%([,;]\%([.$]\|\d\+\)\)*\)\?\s*' .
+    \ '\%(argdo\?!\?\|bufdo\?!\?\|windo\?\|tabdo\?\)' ]
+<
+
+==============================================================================
+FAQ:
+
+  - The alias
+
+      Alias -range a alias
+
+    does not expand after a range ending in a word character such as .,'m or
+    .,.+3, that is, for example
+
+      .,.+3a<space>
+
+    does not expand to
+
+      .,.+3alias
+
+    This is because <space> after '3alias' checks if the command-line
+    abbreviation '3alias' expands, and not 'alias'.
+
+    Instead, add a space after the range, that is,
+
+      .,.+3 a
+
+    Then hitting <space> expands 'a' to 'alias', as expected.
+
+  - If one alias that allows for a range extends another by
+    nonword-characters, for example
+
+      Alias f  echo\ 'f'
+      Alias f. echo\ 'f.'
+
+    then the longer alias, here 'f.' does not expand directly after a range.
+    For example, with the above Aliases f and f.,
+
+      '<,'>f.
+
+    does not expand.
+
+  - Since the expansion is in-place, Vim command-line history saves the <rhs>,
+    not the <lhs>. This means you can't retrieve a command from history by
+    partially typing the <lhs>. Instead, type the <rhs> for this purpose.
+
+vim:ft=help:et:ts=2:sw=2:sts=2:norl:noma:nospell

@@ -1,0 +1,13 @@
+#ifndef {{MACRO_GUARD}}
+# define {{MACRO_GUARD}}
+
+class {{CAMEL_CLASS}} {
+
+	public:
+		{{CAMEL_CLASS}}(void);
+		{{CAMEL_CLASS}}({{CAMEL_CLASS}} const & old);
+		{{CAMEL_CLASS}} & operator=({{CAMEL_CLASS}} const & rhs);
+		~{{CAMEL_CLASS}}(void);{{CURSOR}}
+};
+
+#endif /* {{MACRO_GUARD}} */
