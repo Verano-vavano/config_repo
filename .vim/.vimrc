@@ -1,5 +1,4 @@
 source $VIMRUNTIME/defaults.vim
-source ~/.vim/stdheader.vim
 
 set laststatus=2
 
