@@ -70,7 +70,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+#plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -112,6 +112,10 @@ function gphm () {
 
 function try_patch () {
 	patch --dry-run <$1
+}
+
+function find_root () {
+	find / -name $1
 }
 
 PATH+=:~/.local/bin
@@ -189,3 +193,5 @@ alias dps="docker ps"
 alias dspa="docker system prune -a"
 
 alias siege_test="siege -b -c250 -t1M -v"
+
+alias battery='cat /sys/class/power_supply/axp288_fuel_gauge/capacity'
