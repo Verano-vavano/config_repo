@@ -24,18 +24,23 @@ set whichwrap=b,s,<,>,[,]
 set noshowmode
 xnoremap J :move '>+1<CR>gv=gv
 xnoremap K :move '<-2<CR>gv=gv
+nnoremap <C-d> f=lv$hd0
 inoremap jh <Esc>
 inoremap <C-k> <C-o>gk
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
 inoremap <C-j> <C-o>gj
-nno <Space> :
-vno <Space> :
+inoremap <C-d> <BS>
+nnoremap <Space> :
+vnoremap <Space> :
 map	<F2> ko{<Esc>}ko}<Esc>
 map	<F3> i(<Esc>$a)
 
+ab #i #include
+ab #d #define
+
 set tabstop=4
-set softtabstop=0
+set softtabstop=4
 set shiftwidth=4
 set noexpandtab
 set scrolloff=8
@@ -43,6 +48,7 @@ set sidescrolloff=8
 set nu
 set relativenumber
 autocmd BufNewFile,BufRead *.tpp set filetype=cpp
+au BufNewFile,BufRead *.html set filetype=htmldjango
 
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"

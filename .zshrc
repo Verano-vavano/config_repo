@@ -115,12 +115,13 @@ function try_patch () {
 }
 
 function find_root () {
-	find / -name $1
+	find / -name $1 2>/dev/null
 }
 
 PATH+=:~/.local/bin
 
-alias cdp="cd ~/Desktop/git_exos"
+alias cdr="while [ ! -d .git -a `pwd` != $(echo ~) -a `pwd` != '/' ]; do; cd ..; done"
+alias cdp="cd ~/Desktop"
 alias cdp3="cdp; cd Cercle_3"
 alias cdp4="cdp; cd Cercle_4"
 alias cdp5="cdp; cd Cercle_5"
@@ -140,6 +141,7 @@ alias cdc="cd classes"
 alias cdb="cd bonus"
 alias cdi="cd includes"
 alias cdsc="cds; cdc"
+alias cdrs="cdr; cds"
 alias cdsci="cdsc; cdi"
 alias cdg="cd $(git rev-parse --show-toplevel)"
 alias norm=norminette
@@ -156,8 +158,9 @@ alias cleaks='cat valgrind-out.txt | grep "definitely lost\|indirectly lost" | a
 alias cl=cleaks
 alias clsum='cat valgrind-out.txt | grep "definitely lost\|indirectly lost" | awk "\$4 != 0 {print}"'
 alias rs='tput reset; stty sane'
-alias z="zellij"
+alias z="zellij options --disable-mouse-mode"
 alias lg="lazygit"
+alias sf="setxkbmap fr"
 
 # emulate bash PROMPT_COMMAND (only for zsh)
 precmd() { eval "$PROMPT_COMMAND" }
@@ -187,11 +190,38 @@ alias dcu="docker-compose up"
 alias dcub="docker-compose up --build"
 alias dcubf="docker-compose up --build --force-recreate"
 alias dcud="docker-compose up -d"
+alias dcdv="docker-compose down -v"
 alias drm="docker container rm"
 alias dcs="docker-compose stop"
 alias dps="docker ps"
-alias dspa="docker system prune -a"
+alias dspa="docker system prune -af"
+alias dvls="docker volume ls"
+
+dvpa () {
+	volumes="$(docker volume ls -q --filter dangling=true)"
+	if [ -n "$volumes" ]; then
+		echo "$volumes" | while read line
+		do
+			echo -n "deleting "
+			docker volume rm "${line}" -f
+		done
+		echo "done"
+	else
+		echo "no volumes to delete"
+	fi
+}
+
+function dbash() {
+	docker exec -it $1 bash
+}
 
 alias siege_test="siege -b -c250 -t1M -v"
 
 alias battery='cat /sys/class/power_supply/axp288_fuel_gauge/capacity'
+alias clip="xclip -sel c"
+
+alias svenv="source ~/user_venv/bin/activate"
+
+function ssl_info {
+	openssl x509 -in $1 -text -noout | less
+}
