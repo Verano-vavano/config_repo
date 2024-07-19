@@ -122,10 +122,6 @@ PATH+=:~/.local/bin
 
 alias cdr="while [ ! -d .git -a `pwd` != $(echo ~) -a `pwd` != '/' ]; do; cd ..; done"
 alias cdp="cd ~/Desktop"
-alias cdp3="cdp; cd Cercle_3"
-alias cdp4="cdp; cd Cercle_4"
-alias cdp5="cdp; cd Cercle_5"
-alias cdp6="cdp; cd Cercle_6"
 alias sourcezsh="source ~/.zshrc"
 alias gccw="gcc -Wall -Wextra -Werror -I includes/ srcs/*.c"
 alias wcl="wc -l"
@@ -150,6 +146,7 @@ alias gph="git push && git push hub"
 alias gps="git push && git push school"
 alias gpsh="git push shrt"
 alias gplsh="git pull shrt"
+alias grmb="git push --delete origin"
 alias v='vim'
 alias rmv='rm -f valgrind*'
 alias rmrf='rm -rf'
@@ -218,10 +215,13 @@ function dbash() {
 alias siege_test="siege -b -c250 -t1M -v"
 
 alias battery='cat /sys/class/power_supply/axp288_fuel_gauge/capacity'
-alias clip="xclip -sel c"
 
 alias svenv="source ~/user_venv/bin/activate"
 
 function ssl_info {
 	openssl x509 -in $1 -text -noout | less
+}
+
+function clip {
+	echo -n $("$@") | xclip -sel c
 }
