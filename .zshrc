@@ -100,6 +100,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+if [ -f ~/.cwd ]; then
+	cd $(cat ~/.cwd)
+fi
+
 function cgrep () {
 	cat * | grep -R $1
 	return $?
@@ -120,7 +124,7 @@ function find_root () {
 
 PATH+=:~/.local/bin
 
-alias cdr="while [ ! -d .git -a `pwd` != $(echo ~) -a `pwd` != '/' ]; do; cd ..; done"
+alias cdr="while [ ! -d .git -a \`pwd\` != \$(echo ~) -a \`pwd\` != '/' ]; do; cd ..; done"
 alias cdp="cd ~/Desktop"
 alias sourcezsh="source ~/.zshrc"
 alias gccw="gcc -Wall -Wextra -Werror -I includes/ srcs/*.c"
@@ -139,7 +143,7 @@ alias cdi="cd includes"
 alias cdsc="cds; cdc"
 alias cdrs="cdr; cds"
 alias cdsci="cdsc; cdi"
-alias cdg="cd $(git rev-parse --show-toplevel)"
+alias cdg="cd \$(git rev-parse --show-toplevel)"
 alias norm=norminette
 alias gp="git push"
 alias gph="git push && git push hub"
@@ -158,6 +162,7 @@ alias rs='tput reset; stty sane'
 alias z="zellij options --disable-mouse-mode"
 alias lg="lazygit"
 alias sf="setxkbmap fr"
+alias c=clear
 
 # emulate bash PROMPT_COMMAND (only for zsh)
 precmd() { eval "$PROMPT_COMMAND" }
@@ -187,6 +192,7 @@ alias dcu="docker-compose up"
 alias dcub="docker-compose up --build"
 alias dcubf="docker-compose up --build --force-recreate"
 alias dcud="docker-compose up -d"
+alias dcd="docker compose down"
 alias dcdv="docker-compose down -v"
 alias drm="docker container rm"
 alias dcs="docker-compose stop"
@@ -225,3 +231,6 @@ function ssl_info {
 function clip {
 	echo -n $("$@") | xclip -sel c
 }
+
+alias svkbd='svkbd-mobile-intl -d'
+alias ipv4="ip route get 1.2.3.4 | awk 'NR==1{print \$7}'"

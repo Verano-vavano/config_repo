@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =2
+let g:netrw_dirhistcnt =3
+let g:netrw_dirhist_3='/home/verano/Desktop/ft_transcendence/srcs/requirements/rabbitmq'
 let g:netrw_dirhist_2='/home/verano/Desktop/ft_transcendence/srcs/requirements/django/transcendence/pong'
 let g:netrw_dirhist_1='/home/verano/Desktop/ft_transcendence/pong'
 let g:netrw_dirhist_0='/home/verano/Desktop/ft_transcendence/srcs/web/js'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_7='/home/verano/Desktop/ft_transcendence'
 let g:netrw_dirhist_6='/home/verano/Desktop/ft_transcendence/srcs'
 let g:netrw_dirhist_5='/home/hdupire/Desktop/git_exos/Cercle_5/webserv/srcs/classes/HTTPProtocol'
 let g:netrw_dirhist_4='/home/hdupire/Desktop/git_exos/Cercle_5/webserv/srcs/classes'
-let g:netrw_dirhist_3='/home/hdupire/Desktop/git_exos/Cercle_5/webserv/srcs/classes/Logger'

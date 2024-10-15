@@ -33,6 +33,7 @@ inoremap <C-j> <C-o>gj
 inoremap <C-d> <BS>
 nnoremap <Space> :
 vnoremap <Space> :
+nnoremap <C-a> :colorscheme shine<Enter>
 map	<F2> ko{<Esc>}ko}<Esc>
 map	<F3> i(<Esc>$a)
 

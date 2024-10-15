@@ -1,0 +1,11 @@
+super + alt + k
+	xinput disable 9
+
+button1 + button3
+	xinput enable 9
+
+Print
+	/usr/bin/screenshot.sh
+
+shift + Print
+	/usr/bin/screenshot.sh current

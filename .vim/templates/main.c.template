@@ -1,4 +1,3 @@
-int	main({{CURSOR}})
-{
+int	main({{CURSOR}}) {
 	return (0);
 }
